@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>dice</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#454545">
+        <meta name="msapplication-TileColor" content="#333333">
+        <meta name="theme-color" content="#ffffff">
+    </head>
+    <body>
+        <div id="menu-bg">
+            <div id="settings-screen">
+                <div>
+                    <input id="mute-checkbox" type="checkbox" value="mute" checked>
+                    <h2>Mute</h2>
+                </div>
+                <div>
+                    <input id="unique-dice" type="checkbox" value="uniqueDice" checked>
+                    <h2>Lucky Dice</h2>
+                </div>
+                <button id="settings-apply-button" onclick="applySettings()">Back</button>
+            </div>
+            <div id="player-selection">
+                <div>
+                    <div id="select-players-container">
+                        <button id="add-player-button" onclick="addPlayer()">+</button>
+                        <div>
+                            <div><p id="player-count">1</p></div>
+                            <img src="hum.png" alt="Human" width="32" height="32">
+                        </div>
+                        <button id="remove-player-button" onclick="removePlayer()">-</button>
+                    </div>
+                    <div id="select-players-container">
+                        <button id="add-bot-button" onclick="addBot()">+</button>
+                        <div>
+                            <div><p id="bot-count">0</p></div>
+                            <img src="bot.png" alt="Human" width="32" height="32">
+                        </div>
+                        <button id="remove-bot-button" onclick="removeBot()">-</button>
+                    </div>
+                </div>
+                <div id="start-game-container">
+                    <button id="start-game-button" onclick="start()">Play</button>
+                </div>
+                <button id="settings-button" onclick="settings()">Settings</button>
+            </div>
+            <div id="continue-screen">
+                <button id="restart-button" onclick="restartGame()">Restart</button>
+                <button id="menu-button" onclick="backToMenu()">Menu</button>
+            </div>
+        </div>
+        <div id="hitbox"></div>
+        <div id="screen-message"><p id="screen-text"></p></div>
+        <div id="score-bar">
+            <div class="aleft">
+                <p id="round-score"></p>
+                <div></div>
+                <p id="total-score"></p>
+            </div>
+            <div class="acenter">
+                <div id="current-player"><p id="player-name"></p></div>
+                <p id="current-score"></p>
+            </div>
+            <div class="aright">
+                <p id="word">Round</p>
+                <p id="current-round"></p>
+            </div>
+        </div>
+        <div id="container">
+        </div>
+        <script src="app.js"></script>
+        <div id="bot-display">
+            <img src="bot.png" alt="Human" width="64" height="64">
+        </div>
+        <div id="button-container">
+            <button id="bet-button" onclick="bet()">Roll</button>
+            <button id="stop-button" onclick="stop()">Stop</button>
+        </div>
+        <audio id="roll-audio" src="sound/roll.mp3"></audio>
+        <!-- <script>
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((reg) => console.log('sw registered'))
+                    .catch((err) => console.log('sw not registered'));
+            }
+        </script> -->
+    </body>
+</html>

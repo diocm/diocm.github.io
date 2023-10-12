@@ -1,0 +1,466 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+
+:root {
+    --sideDistance: 33px;
+    --diceSize: 64px;
+    --fontSize: 2.5em;
+    --borderRadius: 10px
+}
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #222222;
+    user-select: none;
+}
+
+#score-bar {
+    width: 100%;
+    max-width: 720px;
+    height: 90px;
+    display: inline-flex;
+}
+
+#score-bar > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.aleft {
+    width: 25%;
+    height: 100%;
+}
+.acenter {
+    width: 50%;
+    height: 100%;
+}
+.aright {
+    width: 25%;
+    height: 100%;
+}
+
+p {
+    color: white;
+}
+
+.aleft > p {
+    font-size: 2em;
+    margin-right: 15px;
+    margin-left: 10px;
+}
+.aleft > p:last-child {
+    margin-right: 0;
+    margin-left: 25px;
+}
+.aleft > div {
+    width: 80px;
+    height: 2px;
+    rotate: -5deg;
+    margin-left: 10px;
+    background-color: white;
+}
+.acenter > p {
+    font-size: 4em;
+}
+.aright > p {
+    font-size: 2em;
+    text-align: center;
+}
+#word {
+    font-size: 1.5em;
+}
+
+em {
+    font-size: 1.5em;
+    line-height: 1.2em;
+}
+
+#container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: top;
+    justify-content: center;
+    width: 720px;
+    height: 300px;
+    perspective: 100em;
+    perspective-origin: 50% 200%;
+    margin-bottom: 40px;
+}
+
+@media (max-width: 512px) {
+    #container {
+        flex-direction: column;
+        width: 300px;
+        height: 512px;
+    }
+
+    :root {
+        --sideDistance: 27px;
+        --diceSize: 52px;
+        --fontSize: 2em;
+        --borderRadius: 10px;
+    }
+
+    #current-player {
+        top: 0 !important;
+    }
+
+    #bot-display {
+        bottom: 50% !important;
+        transform: translate(0, 536%) !important;
+    }
+}
+
+@media (min-width: 513px) and (max-width: 1024px) {
+    #container {
+        flex-direction: column;
+        width: 512px;
+        height: 300px;
+    }
+}
+
+/* #hitbox {
+    position: none;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+} */
+
+.die {
+    position: relative;
+    width: var(--diceSize);
+    height: var(--diceSize);
+    transform-style: preserve-3d;
+    transition: all 100ms;
+    transform: var(--rotation);
+    margin: 5px;
+}
+
+h1 {
+    position: absolute;
+    font-size: var(--fontSize);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: crimson;
+}
+
+.side {
+    position: absolute;
+    background-color: #ffF;
+    border-radius: var(--borderRadius);
+    width: var(--diceSize);
+    height: var(--diceSize);
+    border: 1px solid #e5e5e5;
+    text-align: center;
+    line-height: 2em;
+    filter: brightness(0.75);
+}
+
+.lit {
+    filter: brightness(1);
+}
+
+.shadow {
+    filter: drop-shadow(0 0 3px rgb(0, 0, 0));
+    font-size: 0;
+}
+
+.selected {
+    outline: 20px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+}
+
+.side:nth-child(1){
+    transform: translateZ(var(--sideDistance));
+}
+
+.side:nth-child(2){
+    transform: rotateY(90deg) translateZ(var(--sideDistance));
+}
+
+.side:nth-child(5){
+    transform: rotateY(-90deg) translateZ(var(--sideDistance));
+}
+
+.side:nth-child(4){
+    transform: rotateX(90deg) translateZ(var(--sideDistance));
+}
+
+.side:nth-child(3){
+    transform: rotateX(-90deg) translateZ(var(--sideDistance));
+}
+
+.side:nth-child(6){
+    transform: rotateY(-180deg) translateZ(var(--sideDistance));
+}
+
+.d-lucky {
+    background-color: darkred !important;
+    border: 1px solid rgb(126, 1, 1) !important;
+}
+.d-lucky > h1 {
+    color: white;
+}
+
+button {
+    margin: 0 10px 0 10px;
+    width: 130px;
+    height: 50px;
+    font-size: 1.5em;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #272727;
+    color: white;
+}
+
+#screen-message {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: #090909;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3em;
+    visibility: hidden;
+    animation-iteration-count: 1;
+    animation-duration: 1s;
+    animation-play-state: running;
+    animation-fill-mode: forwards;
+}
+#screen-text {
+    color: darkred;
+    text-align: center;
+    animation-iteration-count: 1;
+    animation-duration: 1ms;
+    animation-play-state: running;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+}
+
+@keyframes screenEvt {
+    0% {
+        background-color: #00000000;
+    }
+    100% {
+        background-color: #090909;
+    }
+}
+
+@keyframes screenEvtText {
+    0% {
+        visibility: hidden;
+        font-size: 1em;
+    }
+    30% {
+        visibility: visible;
+    }
+    100% {
+        font-size: 1.5em;
+    }
+}
+
+#menu-bg {
+    visibility: visible;
+    background-color: #222222;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#continue-screen {
+    visibility: hidden;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+}
+#continue-screen > button {
+    margin-top: 30px;
+}
+
+#player-selection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#settings-button {
+    margin-top: 40px;
+    width: 200px;
+}
+
+#player-selection > div {
+    width: 200px;
+    height: 160px;
+    display: flex;
+    flex-direction: row;
+}
+
+#select-players-container {
+    width: 200px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#select-players-container > button {
+    width: 96%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#select-players-container > div {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#select-players-container > div > div > p {
+    font-size: 2em;
+}
+
+#start-game-container {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#start-game-button {
+    width: 100%;
+    height: 50%;
+}
+
+#current-round > b {
+    font-size: 1em;
+}
+
+#current-player {
+    width: 160px;
+    height: 44px;
+    position: absolute;
+    top: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8em;
+    visibility: hidden;
+}
+
+#settings-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #222222;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+}
+#settings-screen > div {
+    width: 160px;
+    height: 50px;
+    margin-left: 5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+}
+#settings-screen >div >h2 {
+    font-size: 1.5em;
+    margin-left: 5px;
+    color: white;
+}
+#settings-screen > button {
+    margin-top: 16px;
+}
+
+#bot-display {
+    position: absolute;
+    bottom: 50%;
+    transform: translate(0, 380%);
+    z-index: 2;
+    visibility: hidden;
+    animation-name: bot-icon;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in;
+}
+@keyframes bot-icon {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.6;
+    }
+}
