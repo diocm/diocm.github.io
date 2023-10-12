@@ -22,7 +22,7 @@ const scoring = { // scoring value for each outcome [number of dice][roll]: [sco
 
 
 
-const debug = true; // true to use rigRolls as dice roll results
+const debug = false; // true to use rigRolls as dice roll results
 const rigRolls = [1, 2, 3, 4, 5, 6]; // define each die roll while debug is true
 const container = document.getElementById('container');
 
