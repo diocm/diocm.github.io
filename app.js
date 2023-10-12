@@ -412,6 +412,8 @@ function clearGame() {
     playing = [];
     scores = [];
     diceBag = [];
+    botList = [];
+    botTurn = false;
 };
 
 function updateScoreDisplay() {
