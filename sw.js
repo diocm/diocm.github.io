@@ -6,14 +6,14 @@ const assets = [
     '/app.js',
     '/style.css',
     '/android-chrome-192x192.png',
-    '/android-chrome-256-256.png', //
-    '/apple-touch-icon.png', //
+    //'/android-chrome-256-256.png', //
+    //'/apple-touch-icon.png', //
     '/browserconfig.xml', //
     '/favicon-16x16.png', //
     '/favicon-32x32.png', //
-    '/favicon.ico',
-    '/image/mstile-150x150.png',
-    '/image/safari-pinned-tab.svg',
+    //'/favicon.ico',
+    //'/image/mstile-150x150.png',
+    //'/image/safari-pinned-tab.svg',
 ];
 
 self.addEventListener('install', evt => {
