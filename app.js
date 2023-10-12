@@ -22,8 +22,8 @@ const scoring = { // scoring value for each outcome [number of dice][roll]: [sco
 
 
 
-const debug = false; // true to use rigRolls as dice roll results
-const rigRolls = [1, 1, 1, 1, 1, 1]; // define each die roll while debug is true
+const debug = true; // true to use rigRolls as dice roll results
+const rigRolls = [1, 2, 3, 4, 5, 6]; // define each die roll while debug is true
 const container = document.getElementById('container');
 
 let player = {};
@@ -294,6 +294,7 @@ function selectCheck() { // checking if selected dice results in a valid play
 }
 
 function bet() {
+    tPair = false;
     if(!allowedSelection) {
         console.log("Invalid selection");
         return;
@@ -311,6 +312,7 @@ function bet() {
 }
 
 function stop() {
+    tPair = false;
     if(!allowedSelection) {
         console.log("Invalid selection");
         return;
@@ -363,8 +365,9 @@ function passTurn() {
     }
 }
 
-let uniqueRolls
-let currentRoll
+let uniqueRolls;
+let currentRoll;
+let tPair = false;
 function bustCheck() { // true for valid play
     currentRoll = [];
     for(const currentDice in diceOnTable) {
@@ -388,6 +391,7 @@ function bustCheck() { // true for valid play
             }
         });
         if(uP > 2) {
+            tPair = true;
             return true;
         }
     }
@@ -634,19 +638,14 @@ function bot() {
     let choosenPlay = [];
     let possiblePlay = {};
     let choosenScore = 0;
-    if(currentSelection.length == 6 && uniqueRolls.size == 6) {
+    console.log(currentRoll.length);
+    if(Object.keys(diceOnTable).length == 6 && uniqueRolls.size == 6) {
         choosenPlay = [0,1,2,3,4,5];
+        choosenScore = scoring['str'];
     }
-    else if(currentSelection.length == 6 && uniqueRolls.size == 3) {
-        let tpairCheck = 0;
-        uniqueRolls.forEach((uR) => {
-            if(rolls[uR] == 2) {
-                tpairCheck++;
-            }
-        });
-        if(tpairCheck == 3) {
-            choosenPlay = [0,1,2,3,4,5];
-        }
+    else if(tPair) {
+        choosenPlay = [0,1,2,3,4,5];
+        choosenScore = scoring['tpair'];
     }
     else {
         let uP = 0;
