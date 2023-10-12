@@ -638,7 +638,6 @@ function bot() {
     let choosenPlay = [];
     let possiblePlay = {};
     let choosenScore = 0;
-    console.log(currentRoll.length);
     if(Object.keys(diceOnTable).length == 6 && uniqueRolls.size == 6) {
         choosenPlay = [0,1,2,3,4,5];
         choosenScore = scoring['str'];
